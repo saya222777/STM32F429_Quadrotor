@@ -101,7 +101,8 @@ void sensor_read()
 }
 
 void correct_sensor() 
-{	// 校正IMU
+{	/* IMU calibration */
+
 #define MovegAveFIFO_Size 250
 
 	switch (SensorMode) {
@@ -171,6 +172,9 @@ void correct_sensor()
 		Quaternion_ToNumQ(&NumQ, &AngE);
 
 		SensorMode = Mode_Algorithm;
+		break;
+	default:
+		serial.printf("correct_sensor() [WARNING] unhandled case %d", SensorMode);
 		break;
 	}
 
